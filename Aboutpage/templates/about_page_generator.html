@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us Page Generator</title>
+    <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>About Us Page Generator</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="website_name">Website Name:</label>
+            <input type="text" id="website_name" name="website_name">
+            <label for="website_type">Website Type:</label>
+            <input type="text" id="website_type" name="website_type">
+            <label for="website_specialty">Website Specialty:</label>
+            <input type="text" id="website_specialty" name="website_specialty">
+            <button type="submit">Generate</button>
+        </form>
+
+        <h2>Edit About Us Page</h2>
+        <textarea id="about_page_content" name="about_page_content">{{ about_page_content }}</textarea>
+        <button onclick="generateHtmlCode()">Generate HTML Code</button>
+    </div>
+<div></div>
+    <script>
+        CKEDITOR.replace('about_page_content');
+
+        function generateHtmlCode() {
+            const aboutPageContent = CKEDITOR.instances.about_page_content.getData();
+
+            const htmlCode = `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>About Us</title>
+                </head>
+                <body>
+                    ${aboutPageContent}
+                </body>
+                </html>
+            `;
+
+            alert("Generated HTML Code:\n\n" + htmlCode);
+        }
+    </script>
+</body>
+</html>

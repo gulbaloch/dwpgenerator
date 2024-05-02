@@ -1,0 +1,6 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.about_page_generator, name='about_page_generator'),
+]
